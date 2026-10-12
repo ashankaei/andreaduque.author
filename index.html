@@ -313,6 +313,8 @@ blockquote.pull{
   font-size:clamp(1.4rem,2.6vw,1.85rem);line-height:1.32;color:var(--ink);
   border-left:2px solid var(--rose);padding-left:24px;
 }
+.author-photo{width:160px;height:160px;border-radius:50%;object-fit:cover;margin:32px 0 0 26px;border:4px solid var(--card);box-shadow:0 0 0 1px var(--panel-border);}
+@media (max-width:880px){ .author-photo{width:128px;height:128px;margin-top:24px;} }
 .story-text p{margin:0 0 18px;color:var(--muted);font-size:1.02rem;max-width:58ch;}
 .story-text em{color:var(--ink);font-style:italic;}
 
@@ -580,7 +582,10 @@ footer .logo-mark{height:46px;margin:0 auto 14px;}
   <section id="story">
     <div class="wrap">
       <div class="story-grid">
-        <blockquote class="pull serif">"I spent years thinking my stories would stay in notebooks nobody saw."</blockquote>
+        <div>
+          <blockquote class="pull serif">"I spent years thinking my stories would stay in notebooks nobody saw."</blockquote>
+          <img class="author-photo" src="andrea-duque.jpg" width="400" height="400" loading="lazy" alt="Andrea Duque smiling over her shoulder on a forest path covered in autumn leaves">
+        </div>
         <div class="story-text">
           <p>I grew up with a book in my hands — <em>Harry Potter</em> first and hardest, then everything after it. I trained as an accountant, built a career on numbers, and told myself the writing could wait.</p>
           <p>Then I became a mother. Somewhere between the sleepless nights and the small, stolen hours after bedtime, I opened my imagination back up. <em>Detours</em>, my debut novel, is what came out of it: the book I always meant to write, finished in the margins of a very full life.</p>
