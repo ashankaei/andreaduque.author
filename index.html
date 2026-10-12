@@ -318,24 +318,14 @@ blockquote.pull{
 
 /* ---- book ---- */
 .book-card{
-  background:var(--card);border:1px solid var(--panel-border);border-radius:20px;
-  display:grid;grid-template-columns:0.85fr 1.15fr;overflow:hidden;
+  background:var(--card);border:1px solid var(--panel-border);border-radius:20px;overflow:hidden;
 }
-@media (max-width:760px){ .book-card{grid-template-columns:1fr;} }
-.book-cover{
-  position:relative;overflow:hidden;
-  background:linear-gradient(170deg, var(--gold) 0%, #2C1830 55%, var(--sage) 100%);
-  padding:44px 32px;display:flex;flex-direction:column;justify-content:space-between;min-height:340px;
-}
-.book-cover .status{
-  align-self:flex-start;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--cream);background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);
+.book-cover{display:block;width:100%;height:auto;aspect-ratio:1672/941;}
+.book-body .status{
+  display:inline-block;margin-bottom:18px;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--gold);background:var(--paper2);border:1px solid var(--panel-border);
   padding:7px 13px;border-radius:999px;font-family:"Inter",sans-serif;font-weight:600;
 }
-.book-cover .title{
-  font-family:"Fraunces",serif;font-size:clamp(2.2rem,4vw,3rem);color:#fff;font-weight:700;line-height:0.95;
-}
-.book-cover .by{color:color-mix(in srgb, var(--cream) 75%, transparent);font-size:0.9rem;margin-top:10px;}
 .book-body{padding:38px 36px;}
 .book-body p{color:var(--muted);font-size:1.02rem;margin:0 0 22px;max-width:55ch;}
 .tags{display:flex;flex-wrap:wrap;gap:8px;}
@@ -593,14 +583,9 @@ footer .logo-mark{height:46px;margin:0 auto 14px;}
         <h2 class="serif">Detours</h2>
       </div>
       <div class="book-card">
-        <div class="book-cover">
-          <span class="status">currently in edit</span>
-          <div>
-            <span class="title serif">Detours</span>
-            <p class="by">a novel by Andrea Duque</p>
-          </div>
-        </div>
+        <img class="book-cover" src="detours-banner.jpg" width="1672" height="941" loading="lazy" alt="Detours, a novel by Andrea Duque. Some roads take you farther than you planned. Watercolor artwork of the New York skyline and Rome under red bougainvillea.">
         <div class="book-body">
+          <span class="status">currently in edit</span>
           <p>Emma Sullivan believes that doing everything right will keep her safe — until Bennett Group turns her down for the job she's spent years chasing. On impulse, she books a solo trip across Europe, every hour mapped out in advance. Then the stranger she's spent almost a year running past at dawn turns out to be Julian Bennett, the president's son, and one unplanned detour to Rome unravels every plan she's ever made.</p>
           <p>A strangers-to-something romance about what happens when the version of your life you refuse to choose finally catches up with you.</p>
           <div class="tags">
