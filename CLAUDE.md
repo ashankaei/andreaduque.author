@@ -16,15 +16,8 @@ Two people edit this repo: Andrea (`duqueandreina1406`) and Amirali (`ashankaei`
 - Never commit secrets, API keys, passwords or subscriber lists. Mailchimp's form `u`/`id` values are fine; they're public by design.
 - Don't touch `CNAME`. It holds the custom domain.
 
-## To do: newsletter signup may be broken (found 2026-10-12)
-The "Be the first to know" form (`#signupForm`, added in PR #7) submits through Mailchimp's JSONP endpoint `/subscribe/post-json`. Two problems:
-
-1. **Missing consent field.** The Mailchimp audience (`516c0ebd91`) has a *required* "Email Updates" GDPR permission, field `gdpr[241265]` with value `Y`. The form never sends it, so Mailchimp will probably reject every signup.
-2. **The JSONP endpoint returned 404** in a test (empty email, nothing subscribed), while the regular `/subscribe/post` endpoint answered normally. It may not be enabled for this account.
-
-Suggested fix:
-- Add a required checkbox to the form: `<input type="checkbox" name="gdpr[241265]" value="Y" required>` with a label like "Yes, I'd like to receive book updates and news from Andrea Duque by email." Send `&gdpr[241265]=Y` in the JSONP URL too, and block submitting until it's ticked.
-- Optionally add a first-name field, `FNAME` (the audience has one).
-- If `post-json` still fails, fall back to a normal form post (remove `e.preventDefault()` in that case, or drop the JS). The `action`, `method="post"` and `target="_blank"` already in the form handle that, and `form-action` in the CSP already allows the Mailchimp host.
-- **Test with a real email address** on the live site, check that it shows up in Mailchimp → Audience, then unsubscribe it. An empty or fake address doesn't prove anything.
-- Delete this section once it's fixed and tested.
+## Newsletter signup (how it works)
+The "Be the first to know" form (`#signupForm`) is a plain form post to Mailchimp's `/subscribe/post` endpoint and opens Mailchimp's confirmation in a new tab. Don't switch it back to the JSONP endpoint (`/subscribe/post-json`): it returned 404 for this account.
+- `EMAIL` is required, `FNAME` is optional, and `gdpr[241265]=Y` is the audience's required "Email Updates" permission. Keep that checkbox, or Mailchimp rejects the signup.
+- The hidden `b_3a95c0c832f0a184601cef622_516c0ebd91` input is Mailchimp's bot trap. Leave it empty and hidden.
+- To test, sign up with a real address on the live site, check Mailchimp → Audience, then unsubscribe it.
