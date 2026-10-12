@@ -1,20 +1,13 @@
-# Book Website
+# Andrea Duque, Author Website
 
-A simple static site (no build step, no server).
+Static one-page site for *Detours* (no build step, no server). Everything lives in `index.html` (styles and scripts are inline).
 
-## Files
-- `index.html` : all the text. Search for "Author Name", "hello@example.com", and the blurb placeholders.
-- `style.css` : colors and layout. Colors are at the top under `:root`.
-- `images/` : put cover images here (create the folder), then replace the `<div class="cover">` in `index.html` with `<div class="cover"><img src="images/detours.jpg" alt="Detours cover"></div>`.
+## Editing
+- Text: open `index.html` on GitHub and click the pencil icon. Search for the section you want (`id="story"`, `id="book"`, `id="cast"`, `id="quiz"`, `id="join"`, `id="follow"`).
+- Each save to `main` republishes the site automatically (usually within a minute).
 
-## Publish with GitHub Pages
-1. Create a **public** repo on GitHub (free Pages needs public).
-2. Upload these files (or push with Git).
-3. Repo Settings > Pages > Source: "Deploy from a branch", branch `main`, folder `/ (root)`.
-4. The site goes live at `https://USERNAME.github.io/REPO/` within a minute or two.
+## Hosting
+GitHub Pages, branch `main`, folder `/ (root)`. Custom domain is set by the `CNAME` file (`andreaduqueauthor.com`). DNS: four `A` records for `@` (185.199.108-111.153) and a `CNAME` for `www` pointing to `ashankaei.github.io`.
 
-## Share with someone
-Repo Settings > Collaborators > Add people. They can edit `index.html` directly in the browser (pencil icon), and each save updates the live site.
-
-## Custom domain
-Settings > Pages > Custom domain, then add the DNS records your domain registrar shows.
+## Newsletter signup
+The form on the page does **not** send emails anywhere yet. To collect real signups, replace the `<form id="signupForm">` block with the embed code from a service such as MailerLite, Buttondown or Mailchimp. Never commit subscriber lists or API keys to this repo.
