@@ -210,6 +210,12 @@ header.nav{
   position:absolute;inset:0;width:100%;height:100%;
   opacity:0.26;pointer-events:none;
 }
+.hero-map-mobile{display:none;}
+@media (max-width:700px){
+  .hero-map-desktop{display:none;}
+  /* brighter than desktop so the city names stay legible on a small screen */
+  .hero-map-mobile{display:block;opacity:0.42;}
+}
 .hero-inner{position:relative;z-index:1;padding:120px 0 72px;width:100%;}
 @media (max-width:1236px){ .hero-inner{padding-left:28px;padding-right:28px;} }
 .hero-badge{
@@ -475,7 +481,7 @@ footer .logo-mark{height:46px;margin:0 auto 14px;}
 <main id="top">
 
   <section class="hero">
-    <svg class="hero-map" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <svg class="hero-map hero-map-desktop" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <path d="M120 180 Q 340 60 560 190 T 980 260" fill="none" stroke="#F7EFDF" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="2 10" opacity="0.5"/>
 
       <!-- animated route: plays unless the viewer asked for reduced motion -->
@@ -522,6 +528,52 @@ footer .logo-mark{height:46px;margin:0 auto 14px;}
           <text x="330" y="310">Paris</text>
           <text x="190" y="555">Madrid</text>
           <text x="700" y="545" font-size="26" font-weight="700">?</text>
+        </g>
+      </g>
+    </svg>
+    <!-- phone version of the map: portrait layout, cities kept above and below the hero text -->
+    <svg class="hero-map hero-map-mobile" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g class="route-animated">
+        <path d="M60 112 L 300 62 L 378 168 L 352 728 L 92 748" fill="none" stroke="#F7EFDF" stroke-width="1.6"
+              stroke-linecap="round" stroke-dasharray="1" stroke-dashoffset="1" pathLength="1" opacity="0">
+          <animate attributeName="stroke-dashoffset" values="1;1;0;0;0" keyTimes="0;0.05;0.65;0.85;1" dur="11s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.05;0.6;0.9;1" dur="11s" repeatCount="indefinite"/>
+        </path>
+        <circle r="5" fill="#F7EFDF" opacity="0">
+          <animateMotion dur="11s" repeatCount="indefinite" keyPoints="0;0;1;1;1" keyTimes="0;0.05;0.65;0.85;1" calcMode="linear"
+            path="M60 112 L 300 62 L 378 168 L 352 728 L 92 748"/>
+          <animate attributeName="opacity" values="0;1;1;1;0" keyTimes="0;0.05;0.6;0.9;1" dur="11s" repeatCount="indefinite"/>
+        </circle>
+        <g fill="#F7EFDF">
+          <circle cx="60" cy="112" r="4"><animate attributeName="r" values="4;4;7;4;4" keyTimes="0;0.03;0.09;0.15;1" dur="11s" repeatCount="indefinite"/></circle>
+          <circle cx="300" cy="62" r="4"><animate attributeName="r" values="4;4;4;7;4;4" keyTimes="0;0.17;0.20;0.26;0.32;1" dur="11s" repeatCount="indefinite"/></circle>
+          <circle cx="378" cy="168" r="4"><animate attributeName="r" values="4;4;4;7;4;4" keyTimes="0;0.26;0.30;0.36;0.42;1" dur="11s" repeatCount="indefinite"/></circle>
+          <circle cx="352" cy="728" r="4"><animate attributeName="r" values="4;4;4;7;4;4" keyTimes="0;0.40;0.43;0.49;0.55;1" dur="11s" repeatCount="indefinite"/></circle>
+          <circle cx="92" cy="748" r="5"><animate attributeName="r" values="4;4;4;8;6;6;4" keyTimes="0;0.6;0.65;0.71;0.85;0.95;1" dur="11s" repeatCount="indefinite"/></circle>
+        </g>
+        <g font-family="Fraunces, serif" font-style="italic" font-size="19" fill="#F7EFDF">
+          <text x="48" y="92" text-anchor="start" opacity="0"><animate attributeName="opacity" values="0;0;1;1;1;0" keyTimes="0;0.02;0.08;0.6;0.9;1" dur="11s" repeatCount="indefinite"/>London</text>
+          <text x="322" y="42" text-anchor="end" opacity="0"><animate attributeName="opacity" values="0;0;1;1;1;0" keyTimes="0;0.19;0.26;0.6;0.9;1" dur="11s" repeatCount="indefinite"/>Amsterdam</text>
+          <text x="364" y="160" text-anchor="end" opacity="0"><animate attributeName="opacity" values="0;0;1;1;1;0" keyTimes="0;0.28;0.36;0.6;0.9;1" dur="11s" repeatCount="indefinite"/>Paris</text>
+          <text x="364" y="708" text-anchor="end" opacity="0"><animate attributeName="opacity" values="0;0;1;1;1;0" keyTimes="0;0.42;0.49;0.6;0.9;1" dur="11s" repeatCount="indefinite"/>Madrid</text>
+          <text x="62" y="736" font-size="26" font-weight="700" opacity="0"><animate attributeName="opacity" values="0;0;1;1;1;0" keyTimes="0;0.63;0.71;0.9;0.95;1" dur="11s" repeatCount="indefinite"/>?</text>
+        </g>
+      </g>
+      <g class="route-static">
+        <path d="M60 112 L 300 62 L 378 168 L 352 728 L 92 748" fill="none" stroke="#F7EFDF" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="4 8" opacity="0.7"/>
+        <g fill="#F7EFDF">
+          <circle cx="60" cy="112" r="5"/>
+          <circle cx="300" cy="62" r="5"/>
+          <circle cx="378" cy="168" r="5"/>
+          <circle cx="352" cy="728" r="5"/>
+          <circle cx="92" cy="748" r="6"/>
+        </g>
+        <g font-family="Fraunces, serif" font-style="italic" font-size="19" fill="#F7EFDF" opacity="0.85">
+          <text x="48" y="92" text-anchor="start">London</text>
+          <text x="322" y="42" text-anchor="end">Amsterdam</text>
+          <text x="364" y="160" text-anchor="end">Paris</text>
+          <text x="364" y="708" text-anchor="end">Madrid</text>
+          <text x="62" y="736" font-size="26" font-weight="700">?</text>
         </g>
       </g>
     </svg>
