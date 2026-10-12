@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://andreaduqueauthor.us17.list-manage.com; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action https://andreaduqueauthor.us17.list-manage.com; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action https://andreaduqueauthor.us17.list-manage.com; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Andrea Duque — Author of Detours</title>
@@ -355,11 +355,13 @@ blockquote.pull{
 .join h2{margin-bottom:10px;}
 .join p.sub{color:var(--muted);margin:0 auto 30px;max-width:46ch;}
 .signup{display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
-.signup input[type=email]{
+.signup input[type=email],.signup input[type=text]{
   flex:1 1 230px;padding:13px 18px;border-radius:999px;border:1px solid var(--panel-border);
   background:var(--card);color:var(--ink);font-family:"Inter",sans-serif;font-size:0.96rem;
 }
-.signup input[type=email]::placeholder{color:var(--muted);}
+.signup input::placeholder{color:var(--muted);}
+.signup .consent{flex:1 1 100%;display:flex;gap:10px;align-items:flex-start;text-align:left;font-size:0.86rem;color:var(--muted);margin:4px 6px;cursor:pointer;}
+.signup .consent input{margin-top:3px;accent-color:var(--sage);}
 .signup button[disabled]{opacity:0.6;cursor:wait;}
 .signup-msg{margin:16px auto 0;max-width:44ch;font-family:"Fraunces",serif;font-style:italic;}
 .signup-msg:empty{display:none;}
@@ -707,16 +709,18 @@ footer .logo-mark{height:46px;margin:0 auto 14px;}
       <div class="join">
         <h2 class="serif">Be the first to know</h2>
         <p class="sub">No spam — I'll only email when there's something real to say: the cover reveal, the title announcement, release dates, and the occasional deleted scene.</p>
-        <!-- Mailchimp audience 516c0ebd91. JS submits via Mailchimp's JSONP endpoint so visitors stay on
-             the page; without JS the form falls back to a normal post in a new tab. -->
-        <form class="signup" id="signupForm" action="https://andreaduqueauthor.us17.list-manage.com/subscribe/post?u=3a95c0c832f0a184601cef622&amp;id=516c0ebd91" method="post" target="_blank" novalidate>
+        <!-- Mailchimp audience 516c0ebd91. Plain form post: Mailchimp's JSONP endpoint (post-json) returned 404
+             for this account. gdpr[241265] is the audience's required "Email Updates" permission. -->
+        <form class="signup" id="signupForm" action="https://andreaduqueauthor.us17.list-manage.com/subscribe/post?u=3a95c0c832f0a184601cef622&amp;id=516c0ebd91" method="post" target="_blank">
           <input type="email" name="EMAIL" id="signupEmail" placeholder="you@email.com" required autocomplete="email" aria-label="Email address">
+          <input type="text" name="FNAME" placeholder="First name (optional)" autocomplete="given-name" aria-label="First name">
+          <label class="consent"><input type="checkbox" name="gdpr[241265]" value="Y" required> <span>Yes, I'd like to receive book updates and news from Andrea Duque by email.</span></label>
           <!-- Mailchimp bot trap: real people never see or fill this in -->
           <div aria-hidden="true" style="position:absolute;left:-5000px;"><input type="text" name="b_3a95c0c832f0a184601cef622_516c0ebd91" tabindex="-1" value=""></div>
           <button class="btn btn-dark" type="submit">Join the list</button>
         </form>
         <p class="signup-msg" id="signupMsg" role="status" aria-live="polite"></p>
-        <p class="fineprint">You can unsubscribe anytime. See my <a href="privacy.html">Privacy Policy</a>.</p>
+        <p class="fineprint">Mailchimp opens a confirmation in a new tab. You can unsubscribe anytime. See my <a href="privacy.html">Privacy Policy</a>.</p>
       </div>
     </div>
   </section>
@@ -781,39 +785,14 @@ document.getElementById('yr').textContent = new Date().getFullYear();
   });
 })();
 
-/* ---- newsletter signup (Mailchimp JSONP, stays on the page) ---- */
+/* ---- newsletter signup: the browser posts to Mailchimp in a new tab; this just confirms on the page ---- */
 (function(){
   var form = document.getElementById('signupForm');
   var msg = document.getElementById('signupMsg');
-  var btn = form.querySelector('button');
-  function show(text, ok){ msg.textContent = text; msg.className = 'signup-msg ' + (ok ? 'ok' : 'err'); }
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var email = form.EMAIL.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { show('Please enter a valid email address.', false); return; }
-    var cb = 'mcSignup' + Date.now();
-    var script = document.createElement('script');
-    var done = false;
-    function finish(){ done = true; btn.disabled = false; delete window[cb]; script.remove(); }
-    window[cb] = function(res){
-      finish();
-      if (res && res.result === 'success') {
-        show("Almost there — check your inbox to confirm your subscription.", true);
-        form.reset();
-      } else {
-        // Mailchimp messages can contain HTML and a "0 - " field prefix; show plain text only.
-        var text = (new DOMParser().parseFromString((res && res.msg) || '', 'text/html').body.textContent || '').replace(/^\d+\s*-\s*/, '').replace(/\s*Click here.*$/i, '');
-        show(text || 'Something went wrong — please try again.', false);
-      }
-    };
-    script.onerror = function(){ if (!done) { finish(); show('Something went wrong — please try again.', false); } };
-    script.src = form.action.replace('/subscribe/post?', '/subscribe/post-json?')
-      + '&EMAIL=' + encodeURIComponent(email)
-      + '&' + 'b_3a95c0c832f0a184601cef622_516c0ebd91=' + encodeURIComponent(form.querySelector('[tabindex="-1"]').value)
-      + '&c=' + cb;
-    btn.disabled = true;
-    show('', true);
-    document.body.appendChild(script);
+  form.addEventListener('submit', function(){
+    msg.textContent = "Almost there — finish in the Mailchimp tab, then check your inbox to confirm.";
+    msg.className = 'signup-msg ok';
+    setTimeout(function(){ form.reset(); }, 0);
   });
 })();
 
