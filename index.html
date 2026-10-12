@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action https://andreaduqueauthor.us17.list-manage.com; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Andrea Duque — Author of Detours</title>
@@ -350,15 +350,8 @@ blockquote.pull{
 }
 .join h2{margin-bottom:10px;}
 .join p.sub{color:var(--muted);margin:0 auto 30px;max-width:46ch;}
-form.signup{display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
-form.signup input{
-  flex:1 1 230px;padding:13px 18px;border-radius:999px;border:1px solid var(--panel-border);
-  background:var(--card);color:var(--ink);font-family:"Inter",sans-serif;font-size:0.96rem;
-}
-form.signup input::placeholder{color:var(--muted);}
+.signup{display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
 .fineprint{font-size:0.8rem;color:var(--muted);margin-top:16px;max-width:44ch;margin-left:auto;margin-right:auto;}
-.confirm{display:none;color:var(--sage);font-weight:500;margin-top:16px;font-family:"Fraunces",serif;font-style:italic;}
-.confirm.show{display:block;}
 
 /* ---- follow ---- */
 .follow-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
@@ -655,14 +648,10 @@ footer .logo-mark{height:46px;margin:0 auto 14px;}
       <div class="join">
         <h2 class="serif">Be the first to know</h2>
         <p class="sub">No spam — I'll only email when there's something real to say: the cover reveal, the title announcement, release dates, and the occasional deleted scene.</p>
-        <form class="signup" id="signupForm" action="https://andreaduqueauthor.us17.list-manage.com/subscribe/post?u=3a95c0c832f0a184601cef622&amp;id=516c0ebd91&amp;f_id=00b547e2f0" method="post" target="_blank">
-          <input type="email" name="EMAIL" id="emailInput" placeholder="you@email.com" required autocomplete="email" aria-label="Email address">
-          <!-- Mailchimp bot trap: real people never see or fill this in -->
-          <div aria-hidden="true" style="position:absolute;left:-5000px;"><input type="text" name="b_3a95c0c832f0a184601cef622_516c0ebd91" tabindex="-1" value=""></div>
-          <button class="btn btn-dark" type="submit">Join the list</button>
-        </form>
-        <p class="confirm serif" id="confirmMsg">Almost there — finish in the Mailchimp tab, then check your inbox to confirm.</p>
-        <p class="fineprint">Joining opens a Mailchimp page in a new tab to confirm your signup. You can unsubscribe anytime.</p>
+        <div class="signup">
+          <a class="btn btn-dark" id="signupLink" href="http://eepurl.com/KD_RAC6nwv" target="_blank" rel="noopener noreferrer">Join the list</a>
+        </div>
+        <p class="fineprint">Joining opens my Mailchimp signup form in a new tab. You can unsubscribe anytime.</p>
       </div>
     </div>
   </section>
@@ -725,13 +714,6 @@ document.getElementById('yr').textContent = new Date().getFullYear();
     if (window.innerWidth > 700) close();
   });
 })();
-
-var form = document.getElementById('signupForm');
-form.addEventListener('submit', function(){
-  // The form posts to Mailchimp in a new tab; clear it once the post is under way.
-  document.getElementById('confirmMsg').classList.add('show');
-  setTimeout(function(){ form.reset(); }, 0);
-});
 
 /* ---- Which European City Is Your Solo-Trip Match? ---- */
 (function(){
