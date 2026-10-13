@@ -11,6 +11,7 @@ Two people edit this repo: Andrea (`duqueandreina1406`) and Amirali (`ashankaei`
 ## Security rules (please keep these)
 - **Keep the `Content-Security-Policy` meta tag** at the top of both pages. When you add something from another site, allow only that exact origin in the matching directive (`img-src`, `font-src`, `form-action`, `script-src`…). Never loosen it to `*` or `https:`.
 - **Don't add third-party scripts without asking Andrea and Amirali first.** That includes Mailchimp's "connected site" script (`<script id="mcjs">` from chimpstatic.com), analytics, chat widgets and pixels. They run with full access to the page and can set tracking cookies, which would need a cookie banner and Privacy Policy updates.
+- **Fonts are self-hosted** in `fonts/` (Fraunces and Inter, via `fonts/fonts.css`). Don't link Google Fonts or any other font CDN: under German law, sending visitors' IP addresses to Google without consent has led to fines and warning letters. If a new font or weight is needed, add the `.woff2` file to `fonts/` and an `@font-face` rule to `fonts/fonts.css`.
 - Host images in the repo (as `andrea-duque.jpg` and `detours-banner.jpg` are), compress them, and give them real `alt` text.
 - External links: `target="_blank" rel="noopener noreferrer"`.
 - Never commit secrets, API keys, passwords or subscriber lists. Mailchimp's form `u`/`id` values are fine; they're public by design.
