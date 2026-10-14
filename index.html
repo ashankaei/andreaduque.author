@@ -171,6 +171,10 @@ header.nav{
 }
 .nav-links a:hover::after{right:0;}
 .nav-links .btn{padding:9px 18px;font-size:0.86rem;}
+/* nav CTA: brand orange, a shade deeper than the hero button so the small white text stays readable (4.5:1+) */
+.nav-links .btn-solid{background:color-mix(in srgb, var(--rose) 85%, black);color:#fff;}
+.nav-links .btn-solid:hover{background:var(--ink);color:#fff;}
+.nav-links .btn::after{display:none;}
 
 .nav-toggle{
   display:none;background:none;border:none;cursor:pointer;padding:6px;
@@ -482,7 +486,7 @@ footer .logo-mark{height:46px;margin:0 auto 14px;}
       <li><a href="#cast">The Cast</a></li>
       <li><a href="#book">The Book</a></li>
       <li><a href="#quiz">Quiz</a></li>
-      <li class="nav-cta"><a class="btn btn-dark" href="#join">Join the list</a></li>
+      <li class="nav-cta"><a class="btn btn-solid" href="#join">Join the list</a></li>
     </ul>
   </div>
 </header>
